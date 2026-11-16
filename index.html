@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/land-tracker-io-app/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <meta name="theme-color" content="#14201A" />
+    <link rel="manifest" href="/land-tracker-io-app/manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="/land-tracker-io-app/apple-touch-icon.png" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Land Tracker IO" />
+    <title>Land Tracker IO</title>
+    <style>#boot{display:none}.booting #boot{z-index:2147483000;background:#14201a;transition:opacity .35s;display:block;position:fixed;inset:0;overflow:hidden}#boot.boot--done{opacity:0;pointer-events:none}.boot__art{aspect-ratio:780/1688;width:max(100vw,46.2085vh);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}@media (aspect-ratio>=3/5){.boot__art{width:min(100vw,46.2085vh)}}.boot__art img{width:100%;height:100%;display:block}.boot__fill{background:#e8772e;border-radius:99px;width:0;height:.474%;transition:width .45s;position:absolute;top:87.441%;left:26.923%}</style>
+    <script type="module" crossorigin src="/land-tracker-io-app/assets/index-bUDgKZpL.js"></script>
+    <link rel="stylesheet" crossorigin href="/land-tracker-io-app/assets/index-BLTJbCsx.css">
+  </head>
+  <body>
+    <div id="boot" aria-hidden="true">
+      <div class="boot__art"><img src="/land-tracker-io-app/loading-screen.webp" alt="" /><div class="boot__fill"></div></div>
+    </div>
+    <script>
+      // Only in the Android app (its WebView): elsewhere the loading screen goes at once.
+      ;(function () {
+        var boot = document.getElementById('boot')
+        var cap = window.Capacitor
+        var android = (cap && cap.isNativePlatform && cap.isNativePlatform()) || /Android.*; wv\)/.test(navigator.userAgent)
+        if (!android) return boot.remove()
+        document.documentElement.classList.add('booting')
+        window.__bootStart = Date.now()
+        boot.querySelector('.boot__fill').style.width = '4%'
+        // If the app itself never starts, don't leave it covered.
+        setTimeout(function () {
+          if (document.getElementById('boot')) {
+            boot.remove()
+            document.documentElement.classList.remove('booting')
+          }
+        }, 20000)
+      })()
+    </script>
+    <div id="root"></div>
+  </body>
+</html>
